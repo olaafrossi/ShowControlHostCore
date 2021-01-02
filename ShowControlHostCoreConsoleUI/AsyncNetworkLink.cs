@@ -124,8 +124,6 @@ namespace ShowControlHostCoreConsoleUI
             Enabled = enabled;  //Default is true
         }
 
-        
-
         private bool _disposed = false;
         /// <summary>
         /// Implementation of IDisposable interface.  Cancels the thread and releases resources.
@@ -142,7 +140,6 @@ namespace ShowControlHostCoreConsoleUI
 
             SafeClose();
         }
-
 
         /// <summary>
         /// Very carefully checks and shuts down the tcpClient and sets it to null
@@ -188,8 +185,6 @@ namespace ShowControlHostCoreConsoleUI
             IsConnected = false;
         }
 
-
-
         /// <summary>
         /// Carefully check to see if the link is connected or can be reestablished
         /// </summary>
@@ -231,6 +226,7 @@ namespace ShowControlHostCoreConsoleUI
                 }
             }
         }
+
         private void SafeConnect(object state) 
         {
             //DateTime started = (DateTime)state;
