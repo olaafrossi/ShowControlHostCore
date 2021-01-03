@@ -13,6 +13,7 @@ namespace ShowControlHostCoreConsoleUI
             SetupSCS();
             SendSCSMultiTime(50);
             Console.WriteLine("Hello World!");
+            Console.WriteLine($"Getting a random number {ReturnRandom(1,99)}");
         }
         
         public static void SetupSCS()
@@ -29,6 +30,14 @@ namespace ShowControlHostCoreConsoleUI
             throw new NotImplementedException();
         }
 
+        static int ReturnRandom(int x, int y)
+        {
+            int output = 0;
+            Random rnd = new Random();
+            output = rnd.Next(x, y);
+            return output;
+        }
+
         static void SendSCSMultiTime(int inputNumber)
         {
             string message = string.Empty;
@@ -40,10 +49,10 @@ namespace ShowControlHostCoreConsoleUI
             {
                 for (int i = 0; i < inputNumber; i++)
                 {
-                    byte[] inputBytes = Encoding.ASCII.GetBytes(message); // new byte array and feed it the input string
-                    link.SendMessage(inputBytes); // send the byte array
                     //messageAdder++;
                     message = $"hello{i}\r";
+                    byte[] inputBytes = Encoding.ASCII.GetBytes(message); // new byte array and feed it the input string
+                    link.SendMessage(inputBytes); // send the byte array
                     Thread.Sleep(5);
                     Console.WriteLine($"Sent to SCS {message}");
                 }
