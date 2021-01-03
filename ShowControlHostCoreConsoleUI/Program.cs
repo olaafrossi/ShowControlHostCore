@@ -31,10 +31,9 @@ namespace ShowControlHostCoreConsoleUI
         }
 
         static int ReturnRandom(int x, int y)
-        {
-            int output = 0;
+        { 
             Random rnd = new Random();
-            output = rnd.Next(x, y);
+            int output = rnd.Next(x, y);
             return output;
         }
 
