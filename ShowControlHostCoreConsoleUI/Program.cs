@@ -38,7 +38,7 @@ namespace ShowControlHostCoreConsoleUI
             return output;
         }
 
-        static void SendSCSMultiTime(int inputNumber)
+        static void SendSCSMultiTime(int numberOfMsgsToSend)
         {
             string message = string.Empty;
             //messageAdder = 1;
@@ -47,7 +47,7 @@ namespace ShowControlHostCoreConsoleUI
             //if (link.Enabled && link.IsConnected)
             if (1 == 1)
             {
-                for (int i = 0; i < inputNumber; i++)
+                for (int i = 0; i < numberOfMsgsToSend; i++)
                 {
                     //messageAdder++;
                     message = $"hello{i}\r";
