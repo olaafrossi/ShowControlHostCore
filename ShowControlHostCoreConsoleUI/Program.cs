@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks.Dataflow;
 
 namespace ShowControlHostCoreConsoleUI
 {
@@ -8,12 +9,37 @@ namespace ShowControlHostCoreConsoleUI
     {
         private static AsyncNetworkLink link;
 
+        private static AsyncUdpLink udpLink;
+
         static void Main(string[] args)
         {
-            SetupSCS();
-            SendSCSMultiTime(50);
+            //SetupSCS();
+            //SendSCSMultiTime(50);
             Console.WriteLine("Hello World!");
-            Console.WriteLine($"Getting a random number {ReturnRandom(1,99)}");
+            //Console.WriteLine($"Getting a random number {ReturnRandom(1,99)}");
+            SetupUDP();
+        }
+
+        public static void SetupUDP()
+        {
+            udpLink = new AsyncUdpLink("127.0.0.1", 5000, 660, true);
+            string message = "hello from SetuUDP!0D";
+            string message2 = message.Replace("!0D", "\r");
+            Console.WriteLine(message);
+            Console.WriteLine(message2);
+            byte[] inputBytes = Encoding.ASCII.GetBytes(message2); // new byte array and feed it the input string
+            udpLink.SendMessage(inputBytes);
+
+            for (int i = 0; i < 50; i++)
+            {
+                //messageAdder++;
+                message = $"hello{i}!0D";
+                message2 = message.Replace("!0D", "\r");
+                inputBytes = Encoding.ASCII.GetBytes(message2); // new byte array and feed it the input string
+                udpLink.SendMessage(inputBytes); // send the byte array
+                Thread.Sleep(5);
+                Console.WriteLine($"Sent to SCS {message2}");
+            }
         }
         
         public static void SetupSCS()
@@ -27,7 +53,7 @@ namespace ShowControlHostCoreConsoleUI
 
         private static void LinkOnDataReceived(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         static int ReturnRandom(int x, int y)
